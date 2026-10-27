@@ -1,0 +1,29 @@
+{
+  "additionalProperties": false,
+  "description": "Bounded publication date window enforcing the 3-year recency floor.",
+  "properties": {
+    "recency_floor": {
+      "description": "Earliest date permitted by the 3-year scientific recency policy.",
+      "format": "date",
+      "title": "Recency Floor",
+      "type": "string"
+    },
+    "since_date": {
+      "description": "Inclusive lower bound for publication/start dates.",
+      "format": "date",
+      "title": "Since Date",
+      "type": "string"
+    },
+    "until_date": {
+      "description": "Inclusive upper bound for publication/start dates.",
+      "format": "date",
+      "title": "Until Date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "since_date"
+  ],
+  "title": "RecencyWindow",
+  "type": "object"
+}

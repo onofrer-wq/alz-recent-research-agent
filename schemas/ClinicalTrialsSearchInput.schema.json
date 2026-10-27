@@ -1,0 +1,70 @@
+{
+  "$defs": {
+    "TrialPhase": {
+      "description": "Clinical trial phase classification.",
+      "enum": [
+        "phase_1",
+        "phase_2",
+        "phase_3",
+        "phase_4",
+        "not_applicable",
+        "unknown"
+      ],
+      "title": "TrialPhase",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Validated input schema for ``search_clinicaltrials_alzheimers_trials_since``.",
+  "properties": {
+    "condition": {
+      "default": "Alzheimer Disease",
+      "description": "Disease or condition query passed to ClinicalTrials.gov query.cond.",
+      "maxLength": 200,
+      "minLength": 3,
+      "title": "Condition",
+      "type": "string"
+    },
+    "intervention_terms": {
+      "anyOf": [
+        {
+          "maxLength": 200,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional drug, biologic, device, or behavioral intervention terms.",
+      "title": "Intervention Terms"
+    },
+    "max_results": {
+      "default": 25,
+      "description": "Maximum number of trial records to return (1-100).",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Max Results",
+      "type": "integer"
+    },
+    "phases": {
+      "description": "Optional clinical trial phases to filter via AREA[Phase].",
+      "items": {
+        "$ref": "#/$defs/TrialPhase"
+      },
+      "title": "Phases",
+      "type": "array"
+    },
+    "since_date": {
+      "description": "Earliest trial start date (YYYY-MM-DD) within the 3-year recency window.",
+      "format": "date",
+      "title": "Since Date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "since_date"
+  ],
+  "title": "ClinicalTrialsSearchInput",
+  "type": "object"
+}

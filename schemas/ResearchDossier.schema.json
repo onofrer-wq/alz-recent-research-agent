@@ -1,0 +1,242 @@
+{
+  "$defs": {
+    "RecencyWindow": {
+      "additionalProperties": false,
+      "description": "Bounded publication date window enforcing the 3-year recency floor.",
+      "properties": {
+        "recency_floor": {
+          "description": "Earliest date permitted by the 3-year scientific recency policy.",
+          "format": "date",
+          "title": "Recency Floor",
+          "type": "string"
+        },
+        "since_date": {
+          "description": "Inclusive lower bound for publication/start dates.",
+          "format": "date",
+          "title": "Since Date",
+          "type": "string"
+        },
+        "until_date": {
+          "description": "Inclusive upper bound for publication/start dates.",
+          "format": "date",
+          "title": "Until Date",
+          "type": "string"
+        }
+      },
+      "required": [
+        "since_date"
+      ],
+      "title": "RecencyWindow",
+      "type": "object"
+    },
+    "Source": {
+      "description": "Supported biomedical literature and clinical trial registries.",
+      "enum": [
+        "pubmed",
+        "clinicaltrials_gov",
+        "europepmc",
+        "semantic_scholar"
+      ],
+      "title": "Source",
+      "type": "string"
+    },
+    "SourceType": {
+      "description": "Publication vetting category of a biomedical record.",
+      "enum": [
+        "peer_reviewed",
+        "preprint",
+        "trial_registry"
+      ],
+      "title": "SourceType",
+      "type": "string"
+    },
+    "StudyRecord": {
+      "additionalProperties": false,
+      "description": "Normalized biomedical study or clinical trial record.",
+      "properties": {
+        "abstract": {
+          "anyOf": [
+            {
+              "maxLength": 4000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Bounded abstract or study summary text.",
+          "title": "Abstract"
+        },
+        "journal_or_sponsor": {
+          "anyOf": [
+            {
+              "maxLength": 300,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Journal title, preprint server, or lead clinical trial sponsor.",
+          "title": "Journal Or Sponsor"
+        },
+        "publication_date": {
+          "description": "Publication, posting, or trial start date.",
+          "format": "date",
+          "title": "Publication Date",
+          "type": "string"
+        },
+        "record_id": {
+          "description": "Primary identifier (PMID, NCT ID, Europe PMC ID, or DOI).",
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Record Id",
+          "type": "string"
+        },
+        "sample_size": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Enrolled or analyzed participant count (N) if reported.",
+          "title": "Sample Size"
+        },
+        "source": {
+          "$ref": "#/$defs/Source",
+          "description": "Originating literature database or trial registry."
+        },
+        "source_type": {
+          "$ref": "#/$defs/SourceType",
+          "description": "Peer-reviewed, preprint, or trial registry category."
+        },
+        "status": {
+          "default": "published",
+          "description": "Publication or trial recruitment status.",
+          "maxLength": 100,
+          "title": "Status",
+          "type": "string"
+        },
+        "study_type": {
+          "$ref": "#/$defs/StudyType",
+          "default": "unknown",
+          "description": "Methodological design of the study."
+        },
+        "title": {
+          "description": "Title of the study or trial.",
+          "maxLength": 600,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "trial_phase": {
+          "$ref": "#/$defs/TrialPhase",
+          "default": "not_applicable",
+          "description": "Clinical trial phase if applicable."
+        },
+        "url": {
+          "description": "Canonical HTTPS URL to the study record.",
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "record_id",
+        "title",
+        "publication_date",
+        "url",
+        "source_type"
+      ],
+      "title": "StudyRecord",
+      "type": "object"
+    },
+    "StudyType": {
+      "description": "Methodological design classification of a study.",
+      "enum": [
+        "randomized_controlled_trial",
+        "observational",
+        "meta_analysis",
+        "preclinical",
+        "case_series",
+        "trial_registration",
+        "review",
+        "unknown"
+      ],
+      "title": "StudyType",
+      "type": "string"
+    },
+    "TrialPhase": {
+      "description": "Clinical trial phase classification.",
+      "enum": [
+        "phase_1",
+        "phase_2",
+        "phase_3",
+        "phase_4",
+        "not_applicable",
+        "unknown"
+      ],
+      "title": "TrialPhase",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Aggregated collection of recent studies assembled by the Researcher agent.",
+  "properties": {
+    "notes": {
+      "description": "Methodological or search coverage notes for downstream agents.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Notes",
+      "type": "array"
+    },
+    "question": {
+      "description": "User scientific question.",
+      "maxLength": 1000,
+      "minLength": 3,
+      "title": "Question",
+      "type": "string"
+    },
+    "recency_violations_dropped": {
+      "default": 0,
+      "description": "Count of upstream records discarded for predating the recency floor.",
+      "minimum": 0,
+      "title": "Recency Violations Dropped",
+      "type": "integer"
+    },
+    "recency_window": {
+      "$ref": "#/$defs/RecencyWindow",
+      "description": "Enforced recency window for all searches."
+    },
+    "records": {
+      "description": "Deduplicated study records passing the recency filter.",
+      "items": {
+        "$ref": "#/$defs/StudyRecord"
+      },
+      "title": "Records",
+      "type": "array"
+    },
+    "sources_consulted": {
+      "description": "Literature sources queried to build this dossier.",
+      "items": {
+        "$ref": "#/$defs/Source"
+      },
+      "title": "Sources Consulted",
+      "type": "array"
+    }
+  },
+  "required": [
+    "question",
+    "recency_window"
+  ],
+  "title": "ResearchDossier",
+  "type": "object"
+}

@@ -1,0 +1,57 @@
+{
+  "additionalProperties": false,
+  "description": "Scope, stakes, and temporal classification of an incoming user question.",
+  "properties": {
+    "in_scope": {
+      "description": "True if the query pertains to Alzheimer's or related neurodegeneration.",
+      "title": "In Scope",
+      "type": "boolean"
+    },
+    "reason": {
+      "description": "Explanation of the scope and stakes classification.",
+      "maxLength": 500,
+      "minLength": 3,
+      "title": "Reason",
+      "type": "string"
+    },
+    "requested_since_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Clamped lower-bound date extracted from user query, if any.",
+      "title": "Requested Since Date"
+    },
+    "stakes": {
+      "description": "Risk classification governing human-in-the-loop confirmation or emergency triage.",
+      "enum": [
+        "informational",
+        "treatment_related",
+        "emergency"
+      ],
+      "title": "Stakes",
+      "type": "string"
+    },
+    "topic_tags": {
+      "description": "Detected domain tags (e.g., amyloid, tau, biomarkers, clinical_trials).",
+      "items": {
+        "type": "string"
+      },
+      "title": "Topic Tags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "in_scope",
+    "stakes",
+    "reason"
+  ],
+  "title": "QuestionScope",
+  "type": "object"
+}

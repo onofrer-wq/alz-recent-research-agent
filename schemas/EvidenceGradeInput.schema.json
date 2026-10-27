@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "SourceType": {
+      "description": "Publication vetting category of a biomedical record.",
+      "enum": [
+        "peer_reviewed",
+        "preprint",
+        "trial_registry"
+      ],
+      "title": "SourceType",
+      "type": "string"
+    },
+    "StudyType": {
+      "description": "Methodological design classification of a study.",
+      "enum": [
+        "randomized_controlled_trial",
+        "observational",
+        "meta_analysis",
+        "preclinical",
+        "case_series",
+        "trial_registration",
+        "review",
+        "unknown"
+      ],
+      "title": "StudyType",
+      "type": "string"
+    },
+    "TrialPhase": {
+      "description": "Clinical trial phase classification.",
+      "enum": [
+        "phase_1",
+        "phase_2",
+        "phase_3",
+        "phase_4",
+        "not_applicable",
+        "unknown"
+      ],
+      "title": "TrialPhase",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Validated input schema for ``grade_evidence_claim``.",
+  "properties": {
+    "claim": {
+      "description": "Scientific claim to grade.",
+      "maxLength": 1000,
+      "minLength": 5,
+      "title": "Claim",
+      "type": "string"
+    },
+    "sample_size": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Participant or sample size (N).",
+      "title": "Sample Size"
+    },
+    "source_type": {
+      "$ref": "#/$defs/SourceType",
+      "default": "peer_reviewed",
+      "description": "Vetting category of the source."
+    },
+    "studied_population": {
+      "description": "Population or experimental model actually studied (e.g., '5xFAD mice', 'MCI patients').",
+      "maxLength": 300,
+      "minLength": 2,
+      "title": "Studied Population",
+      "type": "string"
+    },
+    "study_type": {
+      "$ref": "#/$defs/StudyType",
+      "description": "Methodological study design."
+    },
+    "supporting_record_ids": {
+      "description": "List of supporting record IDs (at least one required).",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Supporting Record Ids",
+      "type": "array"
+    },
+    "target_population": {
+      "description": "Population to which the claim is applied (e.g., 'late-stage Alzheimer patients').",
+      "maxLength": 300,
+      "minLength": 2,
+      "title": "Target Population",
+      "type": "string"
+    },
+    "trial_phase": {
+      "$ref": "#/$defs/TrialPhase",
+      "default": "not_applicable",
+      "description": "Trial phase if clinical trial."
+    }
+  },
+  "required": [
+    "claim",
+    "supporting_record_ids",
+    "study_type",
+    "studied_population",
+    "target_population"
+  ],
+  "title": "EvidenceGradeInput",
+  "type": "object"
+}

@@ -1,0 +1,59 @@
+{
+  "additionalProperties": false,
+  "description": "Evaluation output from the Critic agent governing loop termination and HITL review.",
+  "properties": {
+    "approved": {
+      "description": "Whether the draft satisfies all methodological and recency rules.",
+      "title": "Approved",
+      "type": "boolean"
+    },
+    "issues": {
+      "description": "Specific evidentiary or recency defects identified in the draft.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Issues",
+      "type": "array"
+    },
+    "iteration": {
+      "default": 1,
+      "description": "Critique loop iteration counter.",
+      "minimum": 1,
+      "title": "Iteration",
+      "type": "integer"
+    },
+    "newest_findings_emphasised": {
+      "default": true,
+      "description": "Whether the draft prioritizes the most recent and experimental findings.",
+      "title": "Newest Findings Emphasised",
+      "type": "boolean"
+    },
+    "required_changes": {
+      "description": "Actionable edits required from the Consultant before approval.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Changes",
+      "type": "array"
+    },
+    "requires_human_review": {
+      "default": false,
+      "description": "True if any part of the response touches upon clinical treatment decisions.",
+      "title": "Requires Human Review",
+      "type": "boolean"
+    },
+    "speculative_extrapolations": {
+      "description": "Claims permitted as optimistic extrapolations that must carry speculative labels.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Speculative Extrapolations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "approved"
+  ],
+  "title": "CriticVerdict",
+  "type": "object"
+}

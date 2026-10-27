@@ -1,0 +1,39 @@
+{
+  "additionalProperties": false,
+  "description": "Validated input schema for ``search_europepmc_alzheimers_preprints_since``.",
+  "properties": {
+    "include_preprints": {
+      "default": true,
+      "description": "When True, includes bioRxiv/medRxiv preprints (SRC:PPR) alongside MED/PMC.",
+      "title": "Include Preprints",
+      "type": "boolean"
+    },
+    "max_results": {
+      "default": 20,
+      "description": "Maximum number of Europe PMC records to return (1-100).",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Max Results",
+      "type": "integer"
+    },
+    "query_terms": {
+      "description": "Keywords searched across Europe PMC peer-reviewed papers and preprints.",
+      "maxLength": 300,
+      "minLength": 3,
+      "title": "Query Terms",
+      "type": "string"
+    },
+    "since_date": {
+      "description": "Earliest first-publication date (YYYY-MM-DD) within the 3-year recency window.",
+      "format": "date",
+      "title": "Since Date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "query_terms",
+    "since_date"
+  ],
+  "title": "EuropePmcSearchInput",
+  "type": "object"
+}

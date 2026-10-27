@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "description": "Validated input schema for ``search_pubmed_alzheimers_studies_since``.",
+  "properties": {
+    "max_results": {
+      "default": 20,
+      "description": "Maximum number of PubMed records to return (1-100).",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Max Results",
+      "type": "integer"
+    },
+    "query_terms": {
+      "description": "Biomedical search keywords (automatically scoped to Alzheimer's disease).",
+      "maxLength": 300,
+      "minLength": 3,
+      "title": "Query Terms",
+      "type": "string"
+    },
+    "since_date": {
+      "description": "ISO date (YYYY-MM-DD) within the last 3 years.",
+      "format": "date",
+      "title": "Since Date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "query_terms",
+    "since_date"
+  ],
+  "title": "PubMedSearchInput",
+  "type": "object"
+}

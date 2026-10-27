@@ -1,0 +1,185 @@
+{
+  "$defs": {
+    "Confidence": {
+      "description": "Methodological confidence grade assigned to an evidence claim.",
+      "enum": [
+        "high",
+        "moderate",
+        "low"
+      ],
+      "title": "Confidence",
+      "type": "string"
+    },
+    "EvidenceGrade": {
+      "additionalProperties": false,
+      "description": "Methodological quality and extrapolation assessment for a single scientific claim.",
+      "properties": {
+        "claim": {
+          "description": "Specific scientific claim evaluated.",
+          "maxLength": 1000,
+          "minLength": 5,
+          "title": "Claim",
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence",
+          "description": "Deterministic methodological confidence rating."
+        },
+        "extrapolation": {
+          "default": false,
+          "description": "True when the claim extrapolates beyond the studied population or model.",
+          "title": "Extrapolation",
+          "type": "boolean"
+        },
+        "note": {
+          "default": "",
+          "description": "Mandatory explanation of confidence grade and speculative extrapolation label.",
+          "maxLength": 1000,
+          "title": "Note",
+          "type": "string"
+        },
+        "sample_size": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Sample size (N) of the supporting study.",
+          "title": "Sample Size"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SourceType",
+          "description": "Vetting category of the supporting source."
+        },
+        "study_type": {
+          "$ref": "#/$defs/StudyType",
+          "description": "Study design of the primary supporting evidence."
+        },
+        "supporting_record_ids": {
+          "description": "At least one PMID, NCT ID, or Europe PMC ID supporting the claim.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Supporting Record Ids",
+          "type": "array"
+        },
+        "trial_phase": {
+          "$ref": "#/$defs/TrialPhase",
+          "default": "not_applicable",
+          "description": "Clinical trial phase of the primary supporting evidence."
+        }
+      },
+      "required": [
+        "claim",
+        "supporting_record_ids",
+        "study_type",
+        "source_type",
+        "confidence"
+      ],
+      "title": "EvidenceGrade",
+      "type": "object"
+    },
+    "SourceType": {
+      "description": "Publication vetting category of a biomedical record.",
+      "enum": [
+        "peer_reviewed",
+        "preprint",
+        "trial_registry"
+      ],
+      "title": "SourceType",
+      "type": "string"
+    },
+    "StudyType": {
+      "description": "Methodological design classification of a study.",
+      "enum": [
+        "randomized_controlled_trial",
+        "observational",
+        "meta_analysis",
+        "preclinical",
+        "case_series",
+        "trial_registration",
+        "review",
+        "unknown"
+      ],
+      "title": "StudyType",
+      "type": "string"
+    },
+    "TrialPhase": {
+      "description": "Clinical trial phase classification.",
+      "enum": [
+        "phase_1",
+        "phase_2",
+        "phase_3",
+        "phase_4",
+        "not_applicable",
+        "unknown"
+      ],
+      "title": "TrialPhase",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Structured scientific literacy synthesis produced by the Consultant agent.",
+  "properties": {
+    "claims": {
+      "description": "Graded evidence claims underpinning the synthesis.",
+      "items": {
+        "$ref": "#/$defs/EvidenceGrade"
+      },
+      "minItems": 1,
+      "title": "Claims",
+      "type": "array"
+    },
+    "established_context": {
+      "description": "Brief context connecting recent findings to prior knowledge.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Established Context",
+      "type": "array"
+    },
+    "limitations": {
+      "description": "Methodological caveats, small sample sizes, or preprint disclaimers.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "references": {
+      "description": "Formatted citations with record IDs and HTTPS URLs.",
+      "items": {
+        "type": "string"
+      },
+      "title": "References",
+      "type": "array"
+    },
+    "short_answer": {
+      "description": "Concise executive synthesis of recent (< 3 years) findings.",
+      "maxLength": 1500,
+      "minLength": 10,
+      "title": "Short Answer",
+      "type": "string"
+    },
+    "whats_new": {
+      "description": "Key experimental or recent discoveries from the last 3 years.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Whats New",
+      "type": "array"
+    }
+  },
+  "required": [
+    "short_answer",
+    "claims"
+  ],
+  "title": "ConsultantDraft",
+  "type": "object"
+}

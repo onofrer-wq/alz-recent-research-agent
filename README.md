@@ -19,10 +19,10 @@ Built with **Google Agent Development Kit (`google-adk` 2.13)** and **Python 3.1
 
 | # | Criterion | Status | Primary Evidence & Code Links |
 |---|-----------|--------|-------------------------------|
-| 1 | Comprehensive Tool Docstrings | Pending | *To be linked as tools are implemented* |
-| 2 | Descriptive Naming Conventions | In Progress | [`pyproject.toml`](pyproject.toml), [`alz_research_agent/__init__.py`](alz_research_agent/__init__.py) |
-| 3 | Explicit JSON Schemas | Pending | [`schemas/`](schemas/) |
-| 4 | Guided Error Handling | Pending | *To be linked* |
+| 1 | Comprehensive Tool Docstrings | ✅ Complete | [`alz_research_agent/tools/pubmed.py`](alz_research_agent/tools/pubmed.py), [`alz_research_agent/tools/clinicaltrials.py`](alz_research_agent/tools/clinicaltrials.py), [`alz_research_agent/tools/europepmc.py`](alz_research_agent/tools/europepmc.py), [`alz_research_agent/tools/evidence.py`](alz_research_agent/tools/evidence.py), [`tests/unit/test_tools.py`](tests/unit/test_tools.py) |
+| 2 | Descriptive Naming Conventions | ✅ Complete | [`alz_research_agent/tools/__init__.py`](alz_research_agent/tools/__init__.py), [`alz_research_agent/schemas.py`](alz_research_agent/schemas.py) |
+| 3 | Explicit JSON Schemas | ✅ Complete | [`alz_research_agent/schemas.py`](alz_research_agent/schemas.py), [`schemas/`](schemas/), [`scripts/export_schemas.py`](scripts/export_schemas.py), [`tests/unit/test_tools.py`](tests/unit/test_tools.py) |
+| 4 | Guided Error Handling | ✅ Complete | [`alz_research_agent/tools/_errors.py`](alz_research_agent/tools/_errors.py), [`alz_research_agent/tools/_http.py`](alz_research_agent/tools/_http.py), [`tests/unit/test_tools.py`](tests/unit/test_tools.py) |
 | 5 | Robust System Instructions (Constitution) | Pending | *To be linked* |
 | 6 | History Compaction | Pending | [`.env.example`](.env.example) (`COMPACTION_INTERVAL`, `COMPACTION_OVERLAP`) |
 | 7 | Persistent Session State | Pending | [`.env.example`](.env.example) (`SESSION_DB_URL`), [`Makefile`](Makefile) |

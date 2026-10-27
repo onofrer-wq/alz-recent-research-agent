@@ -1,0 +1,21 @@
+{
+  "additionalProperties": false,
+  "description": "Validated input schema for ``fetch_pubmed_abstracts_by_pmid``.",
+  "properties": {
+    "pmids": {
+      "description": "List of 1 to 50 numeric PubMed identifiers (PMIDs).",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "minItems": 1,
+      "title": "Pmids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "pmids"
+  ],
+  "title": "PubMedFetchInput",
+  "type": "object"
+}
