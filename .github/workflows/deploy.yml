@@ -1,0 +1,67 @@
+name: Deploy to Google Cloud
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "alz_research_agent/**"
+      - "deployment/**"
+      - "Dockerfile"
+      - "pyproject.toml"
+      - "uv.lock"
+  workflow_dispatch:
+    inputs:
+      deploy_mode:
+        description: "Deployment command (agents_cli or adk_agent_engine)"
+        required: false
+        default: "agents_cli"
+        type: choice
+        options:
+          - agents_cli
+          - adk_agent_engine
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    name: Deploy Agent via WIF
+    runs-on: ubuntu-latest
+    if: vars.WIF_PROVIDER != '' && vars.DEPLOY_SA != ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud via Workload Identity Federation
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.DEPLOY_SA }}
+
+      - name: Install uv and google-agents-cli
+        uses: astral-sh/setup-uv@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install project and CLI tools
+        run: |
+          uv sync --extra dev
+          uv tool install google-agents-cli
+
+      - name: Deploy with agents-cli (default) or adk deploy agent_engine
+        env:
+          GOOGLE_CLOUD_PROJECT: ${{ vars.GOOGLE_CLOUD_PROJECT }}
+          GOOGLE_CLOUD_LOCATION: ${{ vars.GOOGLE_CLOUD_LOCATION || 'us-central1' }}
+          STAGING_BUCKET: ${{ vars.STAGING_BUCKET }}
+        run: |
+          if [[ "${{ inputs.deploy_mode || 'agents_cli' }}" == "adk_agent_engine" ]]; then
+            uv run adk deploy agent_engine \
+              --project="${GOOGLE_CLOUD_PROJECT}" \
+              --region="${GOOGLE_CLOUD_LOCATION}" \
+              --staging_bucket="${STAGING_BUCKET}" \
+              --otel_to_cloud \
+              alz_research_agent
+          else
+            agents-cli deploy
+          fi

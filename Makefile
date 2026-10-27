@@ -17,7 +17,7 @@ test:
 > uv run pytest tests/unit
 
 eval:
-> uv run adk eval alz_research_agent eval/golden/alz_evalset.evalset.json --config_file_path=eval/eval_config.json --print_detailed_results
+> uv run adk eval alz_research_agent eval/golden/alz_recent_research.evalset.json --config_file_path=eval/test_config.json --print_detailed_results
 
 eval-cli:
 > agents-cli eval run
