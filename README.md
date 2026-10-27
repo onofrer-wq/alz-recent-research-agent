@@ -31,10 +31,10 @@ Built with **Google Agent Development Kit (`google-adk` 2.13)** and **Python 3.1
 | 10 | Strategic Model Routing | In Progress | [`.env.example`](.env.example) (`FAST_MODEL`, `REASONING_MODEL`, `JUDGE_MODEL`) |
 | 11 | Guardrails & Policy Plugins | Pending | [`.env.example`](.env.example) (`MODEL_ARMOR_*`, `BLOCK_ON_SCREENING_FAILURE`) |
 | 12 | Human-in-the-Loop Hooks | Pending | [`.env.example`](.env.example) (`HITL_MODE`) |
-| 13 | Structured JSON Logging | In Progress | [`pyproject.toml`](pyproject.toml) (`T20` print ban), [`.env.example`](.env.example) |
-| 14 | Intent vs. Outcome Capture | Pending | *To be linked* |
-| 15 | Distributed Tracing | In Progress | [`pyproject.toml`](pyproject.toml) (`otel-gcp`), [`Dockerfile`](Dockerfile) (`--otel_to_cloud`) |
-| 16 | PII Redaction | In Progress | [`pyproject.toml`](pyproject.toml) (`google-cloud-dlp`), [`.env.example`](.env.example) (`PII_MODE`) |
+| 13 | Structured JSON Logging | ✅ Complete | [`alz_research_agent/observability/logging_config.py`](alz_research_agent/observability/logging_config.py), [`alz_research_agent/observability/context.py`](alz_research_agent/observability/context.py), [`tests/unit/test_observability.py`](tests/unit/test_observability.py) |
+| 14 | Intent vs. Outcome Capture | ✅ Complete | [`alz_research_agent/observability/intent_outcome_plugin.py`](alz_research_agent/observability/intent_outcome_plugin.py), [`tests/unit/test_observability.py`](tests/unit/test_observability.py) |
+| 15 | Distributed Tracing | ✅ Complete | [`alz_research_agent/observability/tracing.py`](alz_research_agent/observability/tracing.py), [`alz_research_agent/observability/logging_config.py`](alz_research_agent/observability/logging_config.py), [`tests/unit/test_observability.py`](tests/unit/test_observability.py) |
+| 16 | PII Redaction | ✅ Complete | [`alz_research_agent/privacy/pii_redactor.py`](alz_research_agent/privacy/pii_redactor.py), [`alz_research_agent/privacy/log_filter.py`](alz_research_agent/privacy/log_filter.py), [`alz_research_agent/privacy/pii_plugin.py`](alz_research_agent/privacy/pii_plugin.py), [`tests/unit/test_privacy.py`](tests/unit/test_privacy.py) |
 | 17 | Automated Evaluation Suites | In Progress | [`pyproject.toml`](pyproject.toml) (`eval`, `respx`), [`Makefile`](Makefile) (`eval`, `eval-cli`, `eval-pytest`) |
 | 18 | Infrastructure as Code & Agents CLI | In Progress | [`Dockerfile`](Dockerfile), [`Makefile`](Makefile), [`deployment/terraform/`](deployment/terraform/) |
 | 19 | Secure Secret Management | In Progress | [`.gitignore`](.gitignore), [`.pre-commit-config.yaml`](.pre-commit-config.yaml) (`gitleaks`), [`.env.example`](.env.example) |
