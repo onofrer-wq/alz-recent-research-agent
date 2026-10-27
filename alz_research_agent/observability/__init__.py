@@ -11,7 +11,10 @@ from alz_research_agent.observability.context import (
     reset_execution_context,
     set_execution_context,
 )
-from alz_research_agent.observability.intent_outcome_plugin import IntentOutcomePlugin
+from alz_research_agent.observability.intent_outcome_plugin import (
+    IntentOutcomeLoggingPlugin,
+    IntentOutcomePlugin,
+)
 from alz_research_agent.observability.logging_config import JsonFormatter, configure_logging
 from alz_research_agent.observability.tracing import (
     TraceIds,
@@ -21,6 +24,7 @@ from alz_research_agent.observability.tracing import (
 )
 
 __all__ = [
+    "IntentOutcomeLoggingPlugin",
     "IntentOutcomePlugin",
     "JsonFormatter",
     "TraceIds",

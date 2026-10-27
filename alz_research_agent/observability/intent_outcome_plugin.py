@@ -366,3 +366,6 @@ class IntentOutcomePlugin(BasePlugin):
             },
         )
         return None
+
+
+IntentOutcomeLoggingPlugin = IntentOutcomePlugin
