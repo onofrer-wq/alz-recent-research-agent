@@ -32,7 +32,7 @@ golden:
 > uv run python scripts/build_golden_evalset.py
 
 web:
-> uv run adk web --port 8000 --session_service_uri=sqlite:///./sessions.db --memory_service_uri=sqlite:///./memory.db
+> uv run adk web --port 8000 --allow_origins="*" --session_service_uri=sqlite:///./sessions.db --memory_service_uri=sqlite:///./memory.db
 
 run:
 > uv run adk run alz_research_agent
