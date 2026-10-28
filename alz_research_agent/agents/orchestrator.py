@@ -20,6 +20,7 @@ from __future__ import annotations
 from google.adk.agents import LlmAgent
 from google.adk.tools import load_memory
 from google.adk.tools.agent_tool import AgentTool
+from google.genai import types
 
 from alz_research_agent.agents.pipeline import (
     build_research_pipeline,
@@ -59,6 +60,10 @@ def build_orchestrator_agent(settings: Settings | None = None) -> LlmAgent:
         ),
         model=get_model_for_role(AgentRole.ORCHESTRATOR, settings),
         instruction=build_instruction("ORCHESTRATOR"),
+        generate_content_config=types.GenerateContentConfig(
+            thinking_config=types.ThinkingConfig(thinking_budget=0),
+            temperature=0.2,
+        ),
         tools=[
             classify_alzheimers_question_scope,
             pipeline_tool,

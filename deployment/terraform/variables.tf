@@ -32,13 +32,13 @@ variable "container_image" {
 variable "fast_model" {
   description = "Gemini model ID for high-frequency routing, tool orchestration, and LLM-as-a-Judge checks."
   type        = string
-  default     = "gemini-3.8-flash"
+  default     = "gemini-3-flash-preview"
 }
 
 variable "reasoning_model" {
   description = "Gemini model ID for deep multi-study synthesis and methodological critique."
   type        = string
-  default     = "gemini-3.1-pro-preview"
+  default     = "gemini-3.1-pro-preview-customtools"
 }
 
 variable "recency_years" {

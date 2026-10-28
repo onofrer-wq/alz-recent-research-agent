@@ -77,7 +77,7 @@ def _collect_known_record_ids(dossier_or_state: Any) -> set[str]:
         dossier_or_state = dossier_or_state.model_dump(mode="json")
 
     if isinstance(dossier_or_state, dict):
-        for nested_key in ("research_dossier", "dossier"):
+        for nested_key in ("research_dossier", "dossier", "research_findings"):
             if nested_key in dossier_or_state:
                 known.update(_collect_known_record_ids(dossier_or_state[nested_key]))
 
@@ -286,7 +286,11 @@ class SelfEvaluationJudgePlugin(BasePlugin):
                 )
 
             elif "critic" in agent_name:
-                raw_verdict = state.get("critic_verdict")
+                raw_verdict = (
+                    state.get("critic_verdict")
+                    if state.get("critic_verdict") is not None
+                    else state.get("critic_feedback")
+                )
                 validated = parse_and_validate_critic_verdict(raw_verdict)
                 if validated is None:
                     _set_state_value(callback_context, "critic_verdict_valid", False)

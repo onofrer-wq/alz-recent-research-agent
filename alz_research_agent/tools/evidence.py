@@ -143,6 +143,8 @@ _TREATMENT_PATTERNS: tuple[str, ...] = (
 
 _ALZHEIMERS_DOMAIN_KEYWORDS: dict[str, str] = {
     "alzheimer": "alzheimers",
+    "alzeimer": "alzheimers",
+    "alzh": "alzheimers",
     "amyloid": "amyloid",
     "abeta": "amyloid",
     "plaque": "amyloid",
@@ -156,6 +158,7 @@ _ALZHEIMERS_DOMAIN_KEYWORDS: dict[str, str] = {
     "remternetug": "anti_amyloid_immunotherapy",
     "trontinemab": "anti_amyloid_immunotherapy",
     "biomarker": "biomarkers",
+    "biomarcador": "biomarkers",
     "plasma": "biomarkers",
     "csf": "biomarkers",
     "pet": "neuroimaging",
@@ -166,8 +169,10 @@ _ALZHEIMERS_DOMAIN_KEYWORDS: dict[str, str] = {
     "apoe": "genetics",
     "apoe4": "genetics",
     "dementia": "dementia",
+    "demencia": "dementia",
     "mci": "mild_cognitive_impairment",
     "cognitive": "cognition",
+    "cognitiv": "cognition",
     "neurodegenerat": "neurodegeneration",
     "synapse": "synaptic_plasticity",
     "glp-1": "metabolic_therapeutics",

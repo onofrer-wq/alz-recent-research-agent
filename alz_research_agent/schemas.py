@@ -56,10 +56,28 @@ def _validate_since_date_against_floor(value: date) -> date:
     return value
 
 
+def _strip_additional_properties(node: Any) -> Any:
+    """Recursively removes ``additionalProperties`` so Gemini ``response_schema`` accepts the schema."""
+    if isinstance(node, dict):
+        node.pop("additionalProperties", None)
+        for val in node.values():
+            _strip_additional_properties(val)
+    elif isinstance(node, list):
+        for item in node:
+            _strip_additional_properties(item)
+    return node
+
+
 class StrictModel(BaseModel):
     """Base Pydantic model enforcing ``extra='forbid'`` and whitespace stripping."""
 
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    @classmethod
+    def model_json_schema(cls, *args: Any, **kwargs: Any) -> dict[str, Any]:
+        """Generates JSON Schema stripped of ``additionalProperties`` for Gemini API compatibility."""
+        schema = super().model_json_schema(*args, **kwargs)
+        return _strip_additional_properties(schema)
 
 
 class Source(StrEnum):
@@ -535,7 +553,7 @@ def export_all_schemas(output_dir: str | Path) -> list[Path]:
     target_dir.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
     for model_cls in EXPORTED_SCHEMA_MODELS:
-        schema_dict: dict[str, Any] = model_cls.model_json_schema()
+        schema_dict: dict[str, Any] = super(StrictModel, model_cls).model_json_schema()
         schema_path = target_dir / f"{model_cls.__name__}.schema.json"
         schema_path.write_text(
             json.dumps(schema_dict, indent=2, sort_keys=True) + "\n",

@@ -10,6 +10,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from google.adk.agents import LlmAgent
+from google.genai import types
 
 from alz_research_agent.agents.prompts import build_instruction
 from alz_research_agent.config import AgentRole, Settings, get_model_for_role
@@ -17,7 +18,6 @@ from alz_research_agent.schemas import ConsultantDraft
 
 if TYPE_CHECKING:
     from google.adk.agents.callback_context import CallbackContext
-    from google.genai import types
 
 
 def increment_loop_iteration(
@@ -52,6 +52,10 @@ def build_consultant_agent(settings: Settings | None = None) -> LlmAgent:
         ),
         model=get_model_for_role(AgentRole.REASONING, settings),
         instruction=build_instruction("CONSULTANT"),
+        generate_content_config=types.GenerateContentConfig(
+            thinking_config=types.ThinkingConfig(thinking_budget=128),
+            temperature=0.2,
+        ),
         tools=[],
         output_schema=ConsultantDraft,
         output_key="consultant_draft",
