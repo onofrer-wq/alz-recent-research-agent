@@ -93,7 +93,7 @@ make cli   # adk run alz_research_agent
 
 ```bash
 # 1. Authenticate and bootstrap required GCP APIs (Vertex AI, DLP, Model Armor, Secret Manager, Trace)
-export GOOGLE_CLOUD_PROJECT="your-gcp-project-id"
+export GOOGLE_CLOUD_PROJECT="ono-project-sandbox-55800"
 export GOOGLE_CLOUD_LOCATION="us-central1"
 ./scripts/gcp_bootstrap.sh
 
@@ -101,7 +101,7 @@ export GOOGLE_CLOUD_LOCATION="us-central1"
 # Set in .env:
 #   APP_ENV=prod
 #   GOOGLE_GENAI_USE_VERTEXAI=true
-#   GOOGLE_CLOUD_PROJECT=your-gcp-project-id
+#   GOOGLE_CLOUD_PROJECT=ono-project-sandbox-55800
 #   GOOGLE_CLOUD_LOCATION=us-central1
 #   AGENT_ENGINE_ID=your-agent-engine-id
 #   PII_MODE=dlp

@@ -105,7 +105,7 @@ gh run list --limit 3
 
 1. **Bootstrap GCP APIs and Application Default Credentials**:
    ```bash
-   export GOOGLE_CLOUD_PROJECT="your-gcp-project-id"
+   export GOOGLE_CLOUD_PROJECT="ono-project-sandbox-55800"
    export GOOGLE_CLOUD_LOCATION="us-central1"
    ./scripts/gcp_bootstrap.sh
    ```

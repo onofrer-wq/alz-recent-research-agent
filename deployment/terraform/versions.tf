@@ -12,7 +12,7 @@ terraform {
 
   # Uncomment after running scripts/gcp_bootstrap.sh to store state in GCS:
   # backend "gcs" {
-  #   bucket = "YOUR_PROJECT_ID-tfstate"
+  #   bucket = "ono-project-sandbox-55800-tfstate"
   #   prefix = "alz-research-agent/prod"
   # }
 }

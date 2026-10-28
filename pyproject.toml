@@ -8,6 +8,8 @@ version = "1.0.0"
 description = "Multi-agent Alzheimer's disease recent research scientific literacy assistant built with Google ADK."
 readme = "README.md"
 license = { text = "Apache-2.0" }
+authors = [{ name = "Ono Rodriguez" }]
+urls = { Repository = "https://github.com/onofrer-wq/alz-recent-research-agent" }
 requires-python = ">=3.11"
 dependencies = [
     "google-adk[gcp,db,eval,otel-gcp]>=2.13.0,<3.0.0",

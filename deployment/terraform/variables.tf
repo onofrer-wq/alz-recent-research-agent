@@ -26,7 +26,7 @@ variable "github_repository" {
 variable "container_image" {
   description = "Container image URI deployed to Cloud Run v2."
   type        = string
-  default     = "us-central1-docker.pkg.dev/YOUR_PROJECT_ID/alz-recent-research-agent/agent:latest"
+  default     = "us-central1-docker.pkg.dev/ono-project-sandbox-55800/alz-recent-research-agent/agent:latest"
 }
 
 variable "fast_model" {
