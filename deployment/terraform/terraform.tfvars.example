@@ -1,0 +1,11 @@
+# Rubric #18 (Infrastructure as Code): Example Terraform variable values (no sensitive values).
+# Copy to terraform.tfvars for local applies; never commit terraform.tfvars.
+
+project_id        = "your-gcp-project-id"
+region            = "us-central1"
+service_name      = "alz-recent-research-agent"
+github_repository = "onofrer-wq/alz-recent-research-agent"
+container_image   = "us-central1-docker.pkg.dev/your-gcp-project-id/alz-recent-research-agent/agent:latest"
+fast_model        = "gemini-3.8-flash"
+reasoning_model   = "gemini-3.1-pro-preview"
+recency_years     = 3
